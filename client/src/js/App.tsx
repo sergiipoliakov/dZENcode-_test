@@ -1,31 +1,59 @@
-import { useEffect, useState } from 'react'
-import { IOrder } from './types/ordersTypes'
-import { fetchOrders } from './http/ordersApi';
+import { Suspense, useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router';
+import Layout from './components/Layout';
+import { Spinner } from 'react-bootstrap';
 
-function App() {
-  const [orders, setOrders] = useState<IOrder[]>([]);
+function App(props: { routes?: string }) {
+  const { routes } = props;
 
-  const getOrders = async () => {
-    const data = await fetchOrders()
-    setOrders(data)
+  const [routerComponents, setRouterComponents] = useState<{ path: string, key: string, component: React.FunctionComponent }[] | null>(null);
+
+  async function getRouteComponets() {
+    const cmp = routes === 'private' ? await import('./routing/private') : await import('./routing/public');
+    setRouterComponents(cmp.default as any);
   }
 
+  const renderComponent = (Component: React.FunctionComponent, key: string) => {
+    return (
+      <Layout title={key}>
+        <Suspense
+          fallback={<Spinner />}
+        >
+          <Component />
+        </Suspense>
+      </Layout>
+    );
+  };
+
   useEffect(() => {
-    getOrders();
-  }, []);
+    getRouteComponets();
+    return () => {
+      setRouterComponents(null);
+    };
+  }, [routes]);
 
   return (
-    <div>
+    <Routes>
+      <Route path="*" element={<Spinner />} />
       {
-        orders?.map((el) => {
-          return (
-            <div>
-              {el.title}
-            </div>
-          )
-        })
+        (
+          routerComponents?.map((route, i) => {
+            const {
+              path,
+
+              component: Component
+            } = route;
+            return (
+              <Route
+                key={`${path}-${i}`}
+                path={path}
+                element={renderComponent(Component, path)}
+              />
+            );
+          })
+        )
       }
-    </div>
+    </Routes>
   )
 }
 
