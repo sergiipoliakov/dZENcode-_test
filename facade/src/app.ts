@@ -12,10 +12,10 @@ import { Server } from 'socket.io';
 import { setupSocket } from './socket';
 import errorHandler from './middleware/ErrorHandlingMiddleware'
 import router from './routers/index'
-import ApiError from '../src/error/ApiError';
 
 const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING || `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
 const PORT = process.env.SERVER_PORT || 4000;
+console.log('🚀 ~ app.ts:19 ~ process.env.DB_CONNECTION_STRING:', process.env.DB_CONNECTION_STRING)
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +29,9 @@ app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true
 }));
+
+console.log('🚀 ~ app.ts:44 ~ process.env.CLIENT_URL:', process.env.CLIENT_URL)
+
 
 app.use(compression())
 app.use(cookieParser())
@@ -49,11 +52,5 @@ mongoose
 app.use('/api', router);
 
 app.use(errorHandler);
-// app.use((err: any, req: any, res: any , next: any) => {
-//   if (err instanceof ApiError) {
-//     return res.status(err.status).json({ message: err.message })
-//   }
-//   return res.status(500).json({message: 'Unexpected error!!!'})
-// })
 
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
