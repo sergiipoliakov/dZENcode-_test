@@ -4,7 +4,8 @@ interface IOredrCard extends IOrder {
   onClick: () => void,
   onRemove: () => void,
   active: boolean,
-  onArrowClick: () => void
+  onArrowClick: () => void,
+  ref: any
 }
 export type {
   IOredrCard

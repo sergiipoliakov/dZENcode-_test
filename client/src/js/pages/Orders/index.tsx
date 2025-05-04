@@ -1,7 +1,11 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createRef, useRef } from 'react';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 
 // Components
 import OrderCard from '../../components/OrderCard';
@@ -28,6 +32,7 @@ const Orders = () => {
   const {
     translation
   } = useSelector((state: any) => state.i18n as I18N);
+  const refs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [isInfoBlockOpen, setIsInfoBlockOpen] = useState(false)
   const [order, setOrder] = useState<IOrder>();
@@ -70,27 +75,44 @@ const Orders = () => {
         onAccept={onRemoveModalButtonClick}
       >
         <Text>
-            {order?.title}
-          </Text>
-          <Text>
-            {order?.description}
-          </Text>
+          {order?.title}
+        </Text>
+        <Text>
+          {order?.description}
+        </Text>
       </Modal>
       <div className={`${styles['orders__main-block']} ${isInfoBlockOpen && order ? styles['orders__main-block--open'] : ''}`}>
-        {
-          orders.map((el) => {
-            return (
-              <OrderCard
-                onRemove={() => onRemoveHandler(el._id)}
-                onClick={() => onSetOrderHandler(el._id)}
-                key={el._id}
-                active={isInfoBlockOpen && el._id === order?._id}
-                onArrowClick={() => setIsInfoBlockOpen(false)}
-                {...el}
-              />
-            )
-          })
-        }
+        <TransitionGroup component={null}>
+          {
+            orders.map((el) => {
+              if (!refs.current[el._id]) {
+                refs.current[el._id] = createRef<any>();
+              }
+
+              const nodeRef = refs.current[el._id];
+              console.log('🚀 ~ index.tsx:112 ~ orders.map ~ nodeRef:', nodeRef)
+
+              return (
+                <CSSTransition
+                  key={el._id}
+                  nodeRef={nodeRef}
+                  timeout={500}
+                  classNames="item"
+                >
+                  <OrderCard
+                    ref={nodeRef}
+                    onRemove={() => onRemoveHandler(el._id)}
+                    onClick={() => onSetOrderHandler(el._id)}
+                    active={isInfoBlockOpen && el._id === order?._id}
+                    onArrowClick={() => setIsInfoBlockOpen(false)}
+                    {...el}
+                  />
+
+                </CSSTransition>
+              )
+            })
+          }
+        </TransitionGroup>
       </div>
       <div className={`${styles['orders__info-block']} ${isInfoBlockOpen && order ? styles['orders__info-block--open'] : ''}`}>
         <Text size="medium" className="margin--b-24">
@@ -123,27 +145,29 @@ const Orders = () => {
 
           </div>
         </div>
-        {
-          order?.products?.length ? (
-            <div className="fl fl--gap-22 margin--b-24">
-              <Text>
-                {translation?.totalPriceProducts}:
-              </Text>
-              <div>
-                {
-                  getTotalPoductPrice(order?.products).map((item, index) => {
-                    const [symbol, value] = Object.entries(item)[0];
-                    return (
-                      <Text key={index} color="gray">
-                        {value} {getCurrencySymbol(symbol)}
-                      </Text>
-                    )
-                  })
-                }
+        <TransitionGroup className="todo-list" component={null}>
+          {
+            order?.products?.length ? (
+              <div className="fl fl--gap-22 margin--b-24">
+                <Text>
+                  {translation?.totalPriceProducts}:
+                </Text>
+                <div>
+                  {
+                    getTotalPoductPrice(order?.products).map((item, index) => {
+                      const [symbol, value] = Object.entries(item)[0];
+                      return (
+                        <Text key={index} color="gray">
+                          {value} {getCurrencySymbol(symbol)}
+                        </Text>
+                      )
+                    })
+                  }
+                </div>
               </div>
-            </div>
-          ) : null
-        }
+            ) : null
+          }
+        </TransitionGroup>
       </div>
 
     </div>
