@@ -5,13 +5,14 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon",
-    "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/src/app.js\""
+    "add-translations": "ts-node ./scripts/addTranslations.ts"
   },
   "keywords": [],
   "author": "",
   "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "cli-color": "^2.0.4",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -19,11 +20,13 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
+    "module-alias": "^2.2.3",
     "mongoose": "^8.13.2",
     "socket.io": "^4.8.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/cli-color": "^2.0.6",
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",

@@ -15,7 +15,7 @@ services:
     build:
       context: ./facade
       dockerfile: .Dockerfile
-    command: /bin/sh -c "yarn && yarn run start"
+    command: /bin/sh -c "yarn && yarn run add-translations && yarn run start"
     restart: always
     volumes:
       - $PWD/facade:/home/app

@@ -1,0 +1,223 @@
+[
+  {
+    "label": "testText",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Test text"
+      },
+      {
+        "language": "ru",
+        "text": "Тестовый текст"
+      }
+    ]
+  },
+  {
+    "label": "monitors",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Monitors"
+      },
+      {
+        "language": "ru",
+        "text": "Мониторы"
+      }
+    ]
+  },
+  {
+    "label": "smartphones",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Smartphones"
+      },
+      {
+        "language": "ru",
+        "text": "Смартфоны"
+      }
+    ]
+  },
+  {
+    "label": "areYouSureYouWantDeleteProduct",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Are you sure you want to delete the product?"
+      },
+      {
+        "language": "ru",
+        "text": "Вы уверены что хотите удалить продукт?"
+      }
+    ]
+  },
+  {
+    "label": "cancel",
+    "sets": [
+      {
+        "language": "en",
+        "text": "cancel"
+      },
+      {
+        "language": "ru",
+        "text": "отменить"
+      }
+    ]
+  },
+  {
+    "label": "delete",
+    "sets": [
+      {
+        "language": "en",
+        "text": "delete"
+      },
+      {
+        "language": "ru",
+        "text": "удалить"
+      }
+    ]
+  },
+  {
+    "label": "selectTpe",
+    "sets": [
+      {
+        "language": "en",
+        "text": "select type"
+      },
+      {
+        "language": "ru",
+        "text": "выберите тип"
+      }
+    ]
+  },
+  {
+    "label": "orders",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Orders"
+      },
+      {
+        "language": "ru",
+        "text": "Заказы"
+      }
+    ]
+  },
+  {
+    "label": "products",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Products"
+      },
+      {
+        "language": "ru",
+        "text": "Продукты"
+      }
+    ]
+  },
+  {
+    "label": "product(s)",
+    "sets": [
+      {
+        "language": "en",
+        "text": "produst(s)"
+      },
+      {
+        "language": "ru",
+        "text": "продукт(ов)"
+      }
+    ]
+  },
+  {
+    "label": "dateOfCreate",
+    "sets": [
+      {
+        "language": "en",
+        "text": "date Of create"
+      },
+      {
+        "language": "ru",
+        "text": "дата создания"
+      }
+    ]
+  },
+  {
+    "label": "totalPriceProducts",
+    "sets": [
+      {
+        "language": "en",
+        "text": "total price of products"
+      },
+      {
+        "language": "ru",
+        "text": "общая цена продуктов"
+      }
+    ]
+  },
+  {
+    "label": "guarantee",
+    "sets": [
+      {
+        "language": "en",
+        "text": "guarantee"
+      },
+      {
+        "language": "ru",
+        "text": "гарантия"
+      }
+    ]
+  },
+  {
+    "label": "new",
+    "sets": [
+      {
+        "language": "en",
+        "text": "new"
+      },
+      {
+        "language": "ru",
+        "text": "новый"
+      }
+    ]
+  },
+  {
+    "label": "secondHand",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Second-hand"
+      },
+      {
+        "language": "ru",
+        "text": "Б/У"
+      }
+    ]
+  },
+  {
+    "label": "secondHand",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Second-hand"
+      },
+      {
+        "language": "ru",
+        "text": "Б/У"
+      }
+    ]
+  }, 
+  {
+    "label": "activeSessions",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Active sessions"
+      },
+      {
+        "language": "ru",
+        "text": "Активных сессий"
+      }
+    ]
+  }
+]

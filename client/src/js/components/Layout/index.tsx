@@ -15,7 +15,7 @@ const Layout = (props: ILayoutProps) => {
   } = props;
 
   return (
-    <div className={`${styles.layout}`}>
+    <div className={styles.layout}>
       <TopMenu />
       <div className="fl height--100">
         <div className={styles['layout__navgation-wrapper']}>

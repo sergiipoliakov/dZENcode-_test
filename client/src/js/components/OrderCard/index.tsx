@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
 import productsBurgerImg from '/products-burger.png';
 
 // Components
 import { Button } from 'react-bootstrap';
-import Text from '../../common/Text';
+import { Text } from '../../common/components';
 import RightArrowSvg from '/src/icons/right-arrow.svg?react';
 import RemoveSvg from '/src/icons/remove.svg?react';
 
@@ -14,11 +15,15 @@ import { getCurrencySymbol } from '../../helpers/getCurrencySymbol.hl';
 
 // Types
 import { IOredrCard } from './types';
+import { I18N } from '../../middlewares/i18n/types';
 
 // Styles
 import styles from './index.module.sass';
 
 const OrderCard = (props: IOredrCard) => {
+  const {
+    translation
+  } = useSelector((state: any) => state.i18n as I18N);
   const {
     title,
     products,
@@ -36,7 +41,6 @@ const OrderCard = (props: IOredrCard) => {
           {title}
         </Text>
       </div>
-
       <div>
         <img src={productsBurgerImg} width={52} />
       </div>
@@ -45,7 +49,7 @@ const OrderCard = (props: IOredrCard) => {
           {products.length}
         </Text>
         <Text color="gray">
-          продуктов
+        {translation?.['product(s)']}
         </Text>
       </div>
       <div className="overflow--hidden">

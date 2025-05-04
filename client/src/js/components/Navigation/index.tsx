@@ -1,5 +1,6 @@
 
 import { useLayoutEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   useLocation,
   NavLink,
@@ -10,12 +11,16 @@ import { ORDER_ROUTE, PRODUCT_ROUTE } from '../../utils/constants';
 
 // Types
 import { Menu, NavigatiosTypes } from './types';
+import { I18N } from '../../middlewares/i18n/types';
 
 // Styles
 import styles from './navigation.module.sass';
 
 const Navigation = (props: NavigatiosTypes) => {
   const { pathname: path } = useLocation();
+  const {
+    translation
+  } = useSelector((state: any) => state.i18n as I18N);
   const [active, setActive] = useState({} as any);
   const { className = '', dataCy, onNavClick = () => null } = props;
 
@@ -23,13 +28,13 @@ const Navigation = (props: NavigatiosTypes) => {
     {
       label: 'orders',
       icon: 'orders',
-      link: 'orders',
+      link: translation?.orders,
       path: ORDER_ROUTE
     },
     {
       label: 'products',
       icon: 'products',
-      link: 'products',
+      link: translation?.products,
       path: PRODUCT_ROUTE
     }
   ] as Menu[];

@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from 'express';
 import http from 'http';
-import mongoose from 'mongoose';
+import mongoose from './mongooseeConnection';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
@@ -13,9 +13,7 @@ import { setupSocket } from './socket';
 import errorHandler from './middleware/ErrorHandlingMiddleware'
 import router from './routers/index'
 
-const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING || `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
 const PORT = process.env.SERVER_PORT || 4000;
-console.log('🚀 ~ app.ts:19 ~ process.env.DB_CONNECTION_STRING:', process.env.DB_CONNECTION_STRING)
 
 const app = express();
 const server = http.createServer(app);
@@ -40,8 +38,7 @@ app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 
-mongoose
-  .connect(DB_CONNECTION_STRING)
+mongoose()
   .then(() => console.log('Connected to MongoDB'))
   .catch((err: unknown) => {
     if (err instanceof Error) {

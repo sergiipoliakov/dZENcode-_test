@@ -1,12 +1,11 @@
 
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-
+import { useSelector } from 'react-redux';
 
 // Components
-import { Button, Modal } from 'react-bootstrap';
 import OrderCard from '../../components/OrderCard';
-import { Text } from '../../common';
+import { Text, Modal } from '../../common/components';
 
 // Img
 import productsBurgerImg from '/products-burger.png';
@@ -17,6 +16,7 @@ import { getCurrencySymbol } from '../../helpers/getCurrencySymbol.hl';
 
 // Types
 import { IOrder } from '../../types/ordersTypes';
+import { I18N } from '../../middlewares/i18n/types';
 
 // Api
 import { fetchOrders, fetchRemoveOrder } from '../../http/ordersApi';
@@ -25,6 +25,9 @@ import { fetchOrders, fetchRemoveOrder } from '../../http/ordersApi';
 import styles from './orders.module.sass';
 
 const Orders = () => {
+  const {
+    translation
+  } = useSelector((state: any) => state.i18n as I18N);
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [isInfoBlockOpen, setIsInfoBlockOpen] = useState(false)
   const [order, setOrder] = useState<IOrder>();
@@ -62,27 +65,16 @@ const Orders = () => {
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
+        headerTitle={translation?.areYouSureYouWantDeleteProduct}
+        onCancel={() => setModalShow(false)}
+        onAccept={onRemoveModalButtonClick}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Вы уверены что хотите удалить продукт?
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
+        <Text>
             {order?.title}
-          </p>
-          <p>
+          </Text>
+          <Text>
             {order?.description}
-          </p>
-        </Modal.Body>
-        <Modal.Footer className={styles['products__modal-footer']}>
-          <Button variant="light" onClick={() => setModalShow(false)}>отменить</Button>
-          <Button variant="danger" onClick={onRemoveModalButtonClick}>удалить</Button>
-        </Modal.Footer>
+          </Text>
       </Modal>
       <div className={`${styles['orders__main-block']} ${isInfoBlockOpen && order ? styles['orders__main-block--open'] : ''}`}>
         {
@@ -102,7 +94,7 @@ const Orders = () => {
       </div>
       <div className={`${styles['orders__info-block']} ${isInfoBlockOpen && order ? styles['orders__info-block--open'] : ''}`}>
         <Text size="medium" className="margin--b-24">
-          Название прихода: {order?.title}
+          {translation?.nameOrder} {order?.title}
         </Text>
         <div className="fl fl--align-c fl--gap-22 margin--b-24 width-100">
           <div>
@@ -113,13 +105,13 @@ const Orders = () => {
               {order?.products.length}
             </Text>
             <Text>
-              продуктов
+              {translation?.['product(s)']}
             </Text>
           </div>
         </div>
         <div className="fl fl--gap-22 margin--b-24">
           <Text>
-            дата создания:
+            {translation?.dateOfCreate}:
           </Text>
           <div>
             <Text>
@@ -135,7 +127,7 @@ const Orders = () => {
           order?.products?.length ? (
             <div className="fl fl--gap-22 margin--b-24">
               <Text>
-                общая цена продуктов:
+                {translation?.totalPriceProducts}:
               </Text>
               <div>
                 {

@@ -1,9 +1,13 @@
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
+
+// Types
+import { I18N } from '../../middlewares/i18n/types';
 import { IProductCardProps } from './types';
 
 // Components
 import { Button } from 'react-bootstrap';
-import { Text } from '../../common'
+import { Text } from '../../common/components'
 import RemoveSvg from '/src/icons/remove.svg?react';
 
 // Img
@@ -13,6 +17,9 @@ import defaultImg from '/default-img.png';
 import styles from './index.module.sass';
 
 const ProductCard = (props: IProductCardProps) => {
+  const {
+    translation
+  } = useSelector((state: any) => state.i18n as I18N);
   const {
     title,
     specification,
@@ -41,7 +48,7 @@ const ProductCard = (props: IProductCardProps) => {
       <div className={styles['product-card__garantee-wrapper']}>
         <div className="fl fl--align-c">
           <Text className="margin--r-12">
-            гарантия
+            {translation?.guarantee}
           </Text>
           <div className="fl fl--dir-col">
             <Text className="overflow--hidden text-overflow--ellipsis font--no-wrap">
@@ -54,7 +61,7 @@ const ProductCard = (props: IProductCardProps) => {
         </div>
       </div>
       <div>
-        <Text>{isNew ? 'Новый' : 'Б/У'}</Text>
+        <Text>{isNew ? translation?.new : translation?.secondHand}</Text>
       </div>
       <div className={styles['product-card__price-wrapper']}>
         {price.map((el, idx) => {

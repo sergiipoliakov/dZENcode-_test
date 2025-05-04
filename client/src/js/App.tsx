@@ -3,6 +3,9 @@ import { Routes, Route } from 'react-router';
 import Layout from './components/Layout';
 import { Spinner } from 'react-bootstrap';
 
+// Middlewares
+import withTranslation from './middlewares/i18n';
+
 function App(props: { routes?: string }) {
   const { routes } = props;
 
@@ -57,4 +60,4 @@ function App(props: { routes?: string }) {
   )
 }
 
-export default App
+export default withTranslation(App);
