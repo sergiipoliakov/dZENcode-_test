@@ -31,11 +31,12 @@ const OrderCard = (props: IOredrCard) => {
     onClick,
     onRemove,
     active,
-    onArrowClick
+    onArrowClick,
+    ref
   } = props;
 
   return (
-    <div onClick={onClick} className={`${styles['order-card']} ${active ? styles['order-card--active'] : ''}`}>
+    <div ref={ref} onClick={onClick} className={`${styles['order-card']} ${active ? styles['order-card--active'] : ''}`}>
       <div className={styles['order-card__title-wrapper']}>
         <Text size="medium" color="dark" className={styles['order-card__title']}>
           {title}

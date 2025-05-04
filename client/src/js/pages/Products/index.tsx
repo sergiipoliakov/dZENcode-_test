@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, createRef } from 'react';
 import { useSelector } from 'react-redux';
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
 
 // Api
 import { fetchPropducts, fetchRemovePropduct } from '../../http/productApi';
 
 // Components
-// import Modal from 'react-bootstrap/esm/Modal';
 import ProductCard from '../../components/ProductCard';
 import { Select, Text, Modal } from '../../common/components';
 
@@ -24,13 +27,14 @@ const Products = () => {
     {
       text: translation?.monitors,
       value: 'monitors'
-  
+
     },
     {
       text: translation?.smartphones,
       value: 'smartphone'
     }
   ];
+  const refs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
   const [products, setProducts] = useState<IProduct[]>([]);
   const [modalShow, setModalShow] = useState(false);
   const [product, setProduct] = useState<IProduct>();
@@ -68,11 +72,11 @@ const Products = () => {
         onAccept={onRemoveModalButtonClick}
       >
         <Text>
-            {product?.title}
-          </Text>
-          <Text>
-            {product?.specification}
-          </Text>
+          {product?.title}
+        </Text>
+        <Text>
+          {product?.specification}
+        </Text>
       </Modal>
       <Select
         classNames={{ wrapper: styles['products__select-wrapper'] }}
@@ -81,14 +85,26 @@ const Products = () => {
         options={selectOptions}
 
       />
-      {
-        products.map((el: IProduct) => {
-          return (
-            <ProductCard key={el._id} onRemove={onRemoveHandler} {...el} />
-          )
-        })
-      }
-
+      <TransitionGroup component={null}>
+        {
+          products.map((el: IProduct) => {
+            if (!refs.current[el._id]) {
+              refs.current[el._id] = createRef<any>();
+            }
+            const nodeRef = refs.current[el._id];
+            return (
+              <CSSTransition
+                key={el._id}
+                nodeRef={nodeRef}
+                timeout={500}
+                classNames="item"
+              >
+                <ProductCard ref={nodeRef} onRemove={onRemoveHandler} {...el} />
+              </CSSTransition>
+            )
+          })
+        }
+      </TransitionGroup>
     </div>
   );
 };

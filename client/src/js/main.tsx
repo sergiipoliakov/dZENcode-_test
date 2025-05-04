@@ -9,7 +9,6 @@ import configureStore from './store';
 import App from './App.tsx';
 import '../styles/default.sass';
 
-
 const store = configureStore({});
 
 createRoot(document.getElementById('root')!).render(
