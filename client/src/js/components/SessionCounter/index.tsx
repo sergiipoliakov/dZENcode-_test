@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
-import { Text } from '../../common';
+
+// Components
+import { Text } from '../../common/components';
+
+// Types
+import { I18N } from '../../middlewares/i18n/types';
 
 const socket = io(import.meta.env.VITE_API_URL);
 
 const SessionCounter = () => {
-
+  const {
+    translation
+  } = useSelector((state: any) => state.i18n as I18N);
   const [activeCount, setActiveCount] = useState(1);
 
   useEffect(() => {  
@@ -19,7 +27,7 @@ const SessionCounter = () => {
   }, []);
   return (
     <div>
-      👥 Активных сессий: <Text tag="span" weight="700">{activeCount}</Text>
+      👥 {translation?.activeSessions}: <Text tag="span" weight="700">{activeCount}</Text>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 // Components
-import Container from 'react-bootstrap/esm/Container';
 import Timer from '../Timer';
 import SessionCounter from '../SessionCounter';
+import LangSelect from '../LangSelect';
 
 // Styles
 import styles from './index.module.sass';
@@ -10,10 +10,11 @@ import styles from './index.module.sass';
 const TopMenu = () => {
   return (
     <header className={styles.topmenu}>
-      <Container className={styles.topmenu__container}>
+      <div className={styles.topmenu__container}>
+          <LangSelect />
           <Timer />
           <SessionCounter />
-      </Container>
+      </div>
     </header>
   )
 }

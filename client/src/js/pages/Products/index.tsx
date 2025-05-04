@@ -1,34 +1,36 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // Api
 import { fetchPropducts, fetchRemovePropduct } from '../../http/productApi';
 
 // Components
-import Modal from 'react-bootstrap/esm/Modal';
+// import Modal from 'react-bootstrap/esm/Modal';
 import ProductCard from '../../components/ProductCard';
-import Button from 'react-bootstrap/esm/Button';
-import { Select, Text } from '../../common';
+import { Select, Text, Modal } from '../../common/components';
 
 // Types
 import { IProduct } from '../../types/productTypes';
+import { I18N } from '../../middlewares/i18n/types';
 
 // Styles
 import styles from './product.module.sass';
 
-const selectOptions = [
-  {
-    text: 'Мониторы',
-    value: 'monitors'
-
-  },
-  {
-    text: 'Смартфоны',
-    value: 'smartphone'
-
-  }
-];
-
 const Products = () => {
+  const {
+    translation
+  } = useSelector((state: any) => state.i18n as I18N);
+  const selectOptions = [
+    {
+      text: translation?.monitors,
+      value: 'monitors'
+  
+    },
+    {
+      text: translation?.smartphones,
+      value: 'smartphone'
+    }
+  ];
   const [products, setProducts] = useState<IProduct[]>([]);
   const [modalShow, setModalShow] = useState(false);
   const [product, setProduct] = useState<IProduct>();
@@ -61,32 +63,20 @@ const Products = () => {
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
+        headerTitle={translation?.areYouSureYouWantDeleteProduct}
+        onCancel={() => setModalShow(false)}
+        onAccept={onRemoveModalButtonClick}
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Вы уверены что хотите удалить продукт?
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Text>
+        <Text>
             {product?.title}
           </Text>
           <Text>
             {product?.specification}
           </Text>
-        </Modal.Body>
-        <Modal.Footer className={styles['products__modal-footer']}>
-          <Button variant="light" onClick={() => setModalShow(false)}>отменыть</Button>
-          <Button variant="danger" onClick={onRemoveModalButtonClick}>удалить</Button>
-        </Modal.Footer>
       </Modal>
-
       <Select
         classNames={{ wrapper: styles['products__select-wrapper'] }}
-        placeholder="выберите тип"
+        placeholder={translation?.selectTpe}
         onChange={(value) => setProductType(value)}
         options={selectOptions}
 
