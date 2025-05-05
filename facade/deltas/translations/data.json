@@ -219,5 +219,239 @@
         "text": "Активных сессий"
       }
     ]
+  },
+  {
+    "label": "addProduct",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Add product"
+      },
+      {
+        "language": "ru",
+        "text": "Добавить продукт"
+      }
+    ]
+  },
+  {
+    "label": "name",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Name"
+      },
+      {
+        "language": "ru",
+        "text": "Название"
+      }
+    ]
+  },
+  {
+    "label": "tooShort",
+    "sets": [
+      {
+        "language": "en",
+        "text": "too short"
+      },
+      {
+        "language": "ru",
+        "text": "слишком короткое"
+      }
+    ]
+  },
+  {
+    "label": "fieldRequired",
+    "sets": [
+      {
+        "language": "en",
+        "text": "field is required"
+      },
+      {
+        "language": "ru",
+        "text": "поле обязательно"
+      }
+    ]
+  },
+  {
+    "label": "tooBig",
+    "sets": [
+      {
+        "language": "en",
+        "text": "too big"
+      },
+      {
+        "language": "ru",
+        "text": "слишком большой"
+      }
+    ]
+  },
+  {
+    "label": "invalidFileFormat",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Invalid file format"
+      },
+      {
+        "language": "ru",
+        "text": "Неверный формат файла"
+      }
+    ]
+  },
+  {
+    "label": "specification",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Specification"
+      },
+      {
+        "language": "ru",
+        "text": "Спецификация"
+      }
+    ]
+  },
+  {
+    "label": "guaranteeDate",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Guarantee date"
+      },
+      {
+        "language": "ru",
+        "text": "Гарантийный срок"
+      }
+    ]
+  },
+  {
+    "label": "selectRange",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Select range"
+      },
+      {
+        "language": "ru",
+        "text": "Выберите диапазон"
+      }
+    ]
+  },
+  {
+    "label": "conditionProduct",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Condition of the product"
+      },
+      {
+        "language": "ru",
+        "text": "Состояние товара"
+      }
+    ]
+  },
+  {
+    "label": "selectCondition",
+    "sets": [
+      {
+        "language": "en",
+        "text": "select condition"
+      },
+      {
+        "language": "ru",
+        "text": "выберите состояние"
+      }
+    ]
+  },
+  {
+    "label": "type",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Type"
+      },
+      {
+        "language": "ru",
+        "text": "Тип"
+      }
+    ]
+  },
+  {
+    "label": "selectType",
+    "sets": [
+      {
+        "language": "en",
+        "text": "select type"
+      },
+      {
+        "language": "ru",
+        "text": "выберите тип"
+      }
+    ]
+  },
+  {
+    "label": "price",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Price"
+      },
+      {
+        "language": "ru",
+        "text": "Цена"
+      }
+    ]
+  },
+  {
+    "label": "photo",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Photo"
+      },
+      {
+        "language": "ru",
+        "text": "Фото"
+      }
+    ]
+  },
+  {
+    "label": "send",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Send"
+      },
+      {
+        "language": "ru",
+        "text": "Отправить"
+      }
+    ]
+  },
+  {
+    "label": "productAddedSuccessfully",
+    "sets": [
+      {
+        "language": "en",
+        "text": "Product added successfully!"
+      },
+      {
+        "language": "ru",
+        "text": "Товар успешно добавлен!"
+      }
+    ]
+  },
+  {
+    "label": "addProduct",
+    "sets": [
+      {
+        "language": "en",
+        "text": "add product"
+      },
+      {
+        "language": "ru",
+        "text": "добавить продукт"
+      }
+    ]
   }
 ]

@@ -8,29 +8,28 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {
       body: {
-        title = 'Product 1',
-        type = 'monitors',
+        title,
+        type,
         serialNumber = Math.floor(Math.random() * 10000),
-        specification = 'Specification 1',
+        specification,
       } = {},
       body
     } = req;
-    const { photo } = req?.files as any || {}
-    const price = JSON.parse(body.price) || [
-      { value: 100, symbol: 'USD', isDefault: 0 },
-      { value: 2600, symbol: 'UAH', isDefault: 1 },
-    ]
-    let fileName: string = ''
-    if (photo) {
-      fileName = uuidv4() + '.jpg'
-      photo.mv(path.resolve(__dirname, '../../', 'static', fileName))
-    }
+      const { photo } = req?.files as any || {}
+      const price = JSON.parse(body.price) 
+      const guarantee = JSON.parse(body.guarantee)
+      let fileName: string = ''
+      if (photo) {
+        fileName = photo.name
+        photo.mv(path.resolve(__dirname, '../../', 'static', fileName))
+      }
     const response = await ProductModel.create({
       title,
       serialNumber,
       specification,
       price,
       type,
+      guarantee,
       photo: fileName
     })
     res.status(200).send(response);

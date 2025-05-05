@@ -1,7 +1,8 @@
 
 import { useEffect, useState, createRef, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   CSSTransition,
   TransitionGroup,
@@ -10,9 +11,16 @@ import {
 // Components
 import OrderCard from '../../components/OrderCard';
 import { Text, Modal } from '../../common/components';
+import { Button } from 'react-bootstrap';
+
+// Constants
+import { PRODUCT_ROUTE } from '../../common/constants/routes.conts';
 
 // Img
 import productsBurgerImg from '/products-burger.png';
+
+// Actions
+import * as actions from './actions/orders.actions';
 
 // Helpers
 import { getTotalPoductPrice } from '../../helpers/getTotalPoductPrice.hl';
@@ -32,6 +40,8 @@ const Orders = () => {
   const {
     translation
   } = useSelector((state: any) => state.i18n as I18N);
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
   const refs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>({});
   const [orders, setOrders] = useState<IOrder[]>([]);
   const [isInfoBlockOpen, setIsInfoBlockOpen] = useState(false)
@@ -65,6 +75,11 @@ const Orders = () => {
     }
   }
 
+  const onAddProductToOrderHandler = async (id: string) => {
+    dispatch(actions.setOrderId(id));
+    navigate(PRODUCT_ROUTE)
+  }
+
   return (
     <div className={`${styles.orders} width--100`}>
       <Modal
@@ -88,10 +103,7 @@ const Orders = () => {
               if (!refs.current[el._id]) {
                 refs.current[el._id] = createRef<any>();
               }
-
               const nodeRef = refs.current[el._id];
-              console.log('🚀 ~ index.tsx:112 ~ orders.map ~ nodeRef:', nodeRef)
-
               return (
                 <CSSTransition
                   key={el._id}
@@ -130,6 +142,9 @@ const Orders = () => {
               {translation?.['product(s)']}
             </Text>
           </div>
+          <Button onClick={() => onAddProductToOrderHandler(order?._id as string)}>
+          {translation?.addProduct}
+          </Button>
         </div>
         <div className="fl fl--gap-22 margin--b-24">
           <Text>
@@ -145,29 +160,27 @@ const Orders = () => {
 
           </div>
         </div>
-        <TransitionGroup className="todo-list" component={null}>
-          {
-            order?.products?.length ? (
-              <div className="fl fl--gap-22 margin--b-24">
-                <Text>
-                  {translation?.totalPriceProducts}:
-                </Text>
-                <div>
-                  {
-                    getTotalPoductPrice(order?.products).map((item, index) => {
-                      const [symbol, value] = Object.entries(item)[0];
-                      return (
-                        <Text key={index} color="gray">
-                          {value} {getCurrencySymbol(symbol)}
-                        </Text>
-                      )
-                    })
-                  }
-                </div>
+        {
+          order?.products?.length ? (
+            <div className="fl fl--gap-22 margin--b-24">
+              <Text>
+                {translation?.totalPriceProducts}:
+              </Text>
+              <div>
+                {
+                  getTotalPoductPrice(order?.products).map((item, index) => {
+                    const [symbol, value] = Object.entries(item)[0];
+                    return (
+                      <Text key={index} color="gray">
+                        {value} {getCurrencySymbol(symbol)}
+                      </Text>
+                    )
+                  })
+                }
               </div>
-            ) : null
-          }
-        </TransitionGroup>
+            </div>
+          ) : null
+        }
       </div>
 
     </div>

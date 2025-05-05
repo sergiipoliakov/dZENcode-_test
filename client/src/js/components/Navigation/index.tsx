@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 //Constants
-import { ORDER_ROUTE, PRODUCT_ROUTE } from '../../utils/constants';
+import { ORDER_ROUTE, PRODUCT_ROUTE } from '../../common/constants/routes.conts';
 
 // Types
 import { Menu, NavigatiosTypes } from './types';

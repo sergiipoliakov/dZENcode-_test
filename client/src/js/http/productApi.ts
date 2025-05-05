@@ -10,7 +10,13 @@ const fetchRemovePropduct = async (productId: string) => {
   return data
 }
 
+const fetchAddPropduct = async (formData: any) => {
+  const { data } = await $host.post('/api/products', formData)
+  return data
+}
+
 export {
   fetchPropducts,
-  fetchRemovePropduct
+  fetchRemovePropduct,
+  fetchAddPropduct
 }
