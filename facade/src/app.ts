@@ -28,9 +28,6 @@ app.use(cors({
   credentials: true
 }));
 
-console.log('🚀 ~ app.ts:44 ~ process.env.CLIENT_URL:', process.env.CLIENT_URL)
-
-
 app.use(compression())
 app.use(cookieParser())
 app.use(bodyParser.json())

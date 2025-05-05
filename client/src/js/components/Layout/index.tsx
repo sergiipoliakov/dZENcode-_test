@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast';
+
 // Components
 import TopMenu from '../TopMenu';
 import Avatar from '../Avatar';
@@ -16,6 +18,7 @@ const Layout = (props: ILayoutProps) => {
 
   return (
     <div className={styles.layout}>
+      <Toaster reverseOrder={false} />
       <TopMenu />
       <div className="fl height--100">
         <div className={styles['layout__navgation-wrapper']}>

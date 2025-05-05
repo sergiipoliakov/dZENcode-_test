@@ -1,0 +1,5 @@
+const EXCHANGE_PRICE_USD = 41.3
+
+export {
+  EXCHANGE_PRICE_USD
+}

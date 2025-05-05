@@ -8,14 +8,12 @@ const addProductToOrder = async (req: Request, res: Response, next: NextFunction
   session.startTransaction();
   try {
     const { params: { id: orderId } } = req;
-    console.log('🚀 ~ addProductToOrder.ts:11 ~ addProductToOrder ~ orderId:', orderId)
     const {
       body: {
         productId,
       } = {}
     } = req;
     const order = await OrderModel.findById(orderId).session(session);
-    console.log('🚀 ~ addProductToOrder.ts:18 ~ addProductToOrder ~ order:', order)
     if (!order) {
       return next(ApiError.badRequest('Order not found'))
     }

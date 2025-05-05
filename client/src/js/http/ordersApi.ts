@@ -5,8 +5,8 @@ const fetchOrders = async () => {
   return data
 }
 
-const fetchAddProductToOrders = async (orderId: string) => {
-  const { data } = await $host.get(`/api/orders/${orderId}`, )
+const fetchAddProductToOrder = async (orderId: string, productId: string) => {
+  const { data } = await $host.put(`/api/orders/${orderId}`, {productId})
   return data
 }
 
@@ -18,5 +18,5 @@ const fetchRemoveOrder = async (orderId: string) => {
 export {
   fetchOrders,
   fetchRemoveOrder,
-  fetchAddProductToOrders
+  fetchAddProductToOrder
 }

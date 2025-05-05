@@ -15,7 +15,8 @@ interface IProduct {
     start: string,
     end:  string
   }
-  order:{
+  order: {
+    _id: string
     title: string
   },
   date: string,

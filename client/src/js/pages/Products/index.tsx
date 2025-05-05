@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, createRef } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   CSSTransition,
   TransitionGroup,
@@ -8,9 +9,13 @@ import {
 // Api
 import { fetchPropducts, fetchRemovePropduct } from '../../http/productApi';
 
+// Constants
+import { ADD_PRODUCT } from '../../common/constants/routes.conts';
+import { NOTIFICATION_TYPES } from '../../common/constants/errors';
+
 // Components
 import ProductCard from '../../components/ProductCard';
-import { Select, Text, Modal } from '../../common/components';
+import { Select, Text, Modal, Notification } from '../../common/components';
 
 // Types
 import { IProduct } from '../../types/productTypes';
@@ -18,11 +23,18 @@ import { I18N } from '../../middlewares/i18n/types';
 
 // Styles
 import styles from './product.module.sass';
+import { fetchAddProductToOrder } from '../../http/ordersApi';
 
 const Products = () => {
   const {
-    translation
-  } = useSelector((state: any) => state.i18n as I18N);
+    orders: {
+      orderId
+    },
+    i18n: {
+      translation
+
+    }
+  } = useSelector((state: any) => state as { i18n: I18N, orders: { orderId: string } });
   const selectOptions = [
     {
       text: translation?.monitors,
@@ -62,51 +74,72 @@ const Products = () => {
     }
   }
 
-  return (
-    <div className={styles.products}>
-      <Modal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        headerTitle={translation?.areYouSureYouWantDeleteProduct}
-        onCancel={() => setModalShow(false)}
-        onAccept={onRemoveModalButtonClick}
-      >
-        <Text>
-          {product?.title}
-        </Text>
-        <Text>
-          {product?.specification}
-        </Text>
-      </Modal>
-      <Select
-        classNames={{ wrapper: styles['products__select-wrapper'] }}
-        placeholder={translation?.selectTpe}
-        onChange={(value) => setProductType(value)}
-        options={selectOptions}
+  const onAddProductToOrderHandler = async (productId: string) => {
+    try {
+      await fetchAddProductToOrder(orderId, productId)
+      await getProducts()
+      Notification(NOTIFICATION_TYPES.SUCCESS)({
+        message: translation?.productAddedSuccessfully as string
+      });
 
-      />
-      <TransitionGroup component={null}>
-        {
-          products.map((el: IProduct) => {
-            if (!refs.current[el._id]) {
-              refs.current[el._id] = createRef<any>();
-            }
-            const nodeRef = refs.current[el._id];
-            return (
-              <CSSTransition
-                key={el._id}
-                nodeRef={nodeRef}
-                timeout={500}
-                classNames="item"
-              >
-                <ProductCard ref={nodeRef} onRemove={onRemoveHandler} {...el} />
-              </CSSTransition>
-            )
-          })
-        }
-      </TransitionGroup>
-    </div>
-  );
-};
+    } catch (error: any) {
+      Notification(NOTIFICATION_TYPES.ERROR)({
+        message: error?.message
+      });
+    }
+  }
 
-export default Products;
+    return (
+      <div className={styles.products}>
+        <Modal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          headerTitle={translation?.areYouSureYouWantDeleteProduct}
+          onCancel={() => setModalShow(false)}
+          onAccept={onRemoveModalButtonClick}
+        >
+          <Text>
+            {product?.title}
+          </Text>
+          <Text>
+            {product?.specification}
+          </Text>
+        </Modal>
+        <div className="fl fl--align-c fl--justify-b">
+          <Select
+            classNames={{ wrapper: styles['products__select-wrapper'] }}
+            placeholder={translation?.selectTpe}
+            onChange={(value) => setProductType(value)}
+            options={selectOptions}
+          />
+          <div>
+            <Link to={ADD_PRODUCT}>
+              {translation?.addProduct}
+            </Link>
+          </div>
+        </div>
+        <TransitionGroup component={null}>
+          {
+            products.map((el: IProduct) => {
+              if (!refs.current[el._id]) {
+                refs.current[el._id] = createRef<any>();
+              }
+              const nodeRef = refs.current[el._id];
+              return (
+                <CSSTransition
+                  key={el._id}
+                  nodeRef={nodeRef}
+                  timeout={500}
+                  classNames="item"
+                >
+                  <ProductCard onAddToOrder={onAddProductToOrderHandler} orderId={orderId} ref={nodeRef} onRemove={onRemoveHandler} {...el} />
+                </CSSTransition>
+              )
+            })
+          }
+        </TransitionGroup>
+      </div>
+    );
+  };
+
+  export default Products;

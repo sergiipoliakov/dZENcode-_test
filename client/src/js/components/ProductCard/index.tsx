@@ -31,10 +31,23 @@ const ProductCard = (props: IProductCardProps) => {
     type,
     _id,
     onRemove,
-    ref
+    ref,
+    orderId,
+    onAddToOrder
   } = props
+
+  const alreadyExists = order?._id === orderId;
   return (
         <div ref={ref} className={styles['product-card']}>
+          {
+            orderId && !alreadyExists && !order?._id ? (
+                <div>
+                  <Button onClick={() => onAddToOrder(_id)}>
+                    +
+                  </Button>
+                </div>
+            ) : null
+          }
           <div>
             <img src={`${photo ? `${import.meta.env.VITE_API_URL}${photo}` : defaultImg}`} width={40} alt={title} />
           </div>

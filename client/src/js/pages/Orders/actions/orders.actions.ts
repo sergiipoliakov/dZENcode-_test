@@ -1,8 +1,6 @@
-import { ReduxState } from '../types';
 import { SET_ORDER_ID } from '../constants';
 
-export function order(payload: { orderId: string}): ReduxState {
-	const { orderId } = payload;
+export function setOrderId(orderId: string): any {
 	return {
 		type: SET_ORDER_ID,
 		payload: {
