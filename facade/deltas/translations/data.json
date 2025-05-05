@@ -453,5 +453,18 @@
         "text": "добавить продукт"
       }
     ]
+  },
+  {
+    "label": "success",
+    "sets": [
+      {
+        "language": "en",
+        "text": "success"
+      },
+      {
+        "language": "ru",
+        "text": "успешно"
+      }
+    ]
   }
 ]

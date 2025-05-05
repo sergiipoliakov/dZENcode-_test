@@ -5,6 +5,7 @@ import { Spinner } from 'react-bootstrap';
 
 // Middlewares
 import withTranslation from './middlewares/i18n';
+import withOauth from './decorators/Oauth.dec';
 
 function App(props: { routes?: string }) {
   const { routes } = props;
@@ -43,7 +44,6 @@ function App(props: { routes?: string }) {
           routerComponents?.map((route, i) => {
             const {
               path,
-
               component: Component
             } = route;
             return (
@@ -60,4 +60,4 @@ function App(props: { routes?: string }) {
   )
 }
 
-export default withTranslation(App);
+export default withTranslation(withOauth(App));
