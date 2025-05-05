@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction }  from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { Product as ProductModel } from '../../model/products.model';
 import ApiError from '../../error/ApiError';

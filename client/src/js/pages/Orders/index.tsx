@@ -10,7 +10,7 @@ import {
 
 // Components
 import OrderCard from '../../components/OrderCard';
-import { Text, Modal } from '../../common/components';
+import { Text, Modal, Notification } from '../../common/components';
 import { Button } from 'react-bootstrap';
 
 // Constants
@@ -35,6 +35,7 @@ import { fetchOrders, fetchRemoveOrder } from '../../http/ordersApi';
 
 // Stypes
 import styles from './orders.module.sass';
+import { NOTIFICATION_TYPES } from '../../common/constants/errors';
 
 const Orders = () => {
   const {
@@ -67,11 +68,23 @@ const Orders = () => {
     setOredId(id)
     setModalShow(true)
   }
-  const onRemoveModalButtonClick = () => {
-    if (orderId) {
-      fetchRemoveOrder(orderId)
-      setOrders((prev) => prev.filter((item) => item._id !== orderId))
-      setModalShow(false)
+  const onRemoveModalButtonClick = async () => {
+    try {
+      if (orderId) {
+        await fetchRemoveOrder(orderId)
+        setOrders((prev) => prev.filter((item) => item._id !== orderId))
+        setModalShow(false)
+        dispatch(actions.setOrderId(''));
+        setIsInfoBlockOpen(false)
+        Notification(NOTIFICATION_TYPES.SUCCESS)({
+          message: translation?.success as string
+        })
+      }
+      
+    } catch (error: any) {
+      Notification(NOTIFICATION_TYPES.ERROR)({
+        message: error.message
+      })
     }
   }
 
