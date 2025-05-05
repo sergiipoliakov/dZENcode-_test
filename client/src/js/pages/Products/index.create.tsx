@@ -87,10 +87,10 @@ const CreateForm: React.FC = () => {
   
     photo: Yup.mixed()
       .required(translation?.fieldRequired)
-      .test('fileSize', translation?.tooBig as string, value => {
+      .test('fileSize', translation?.tooBig as string, (value: any) => {
         return value && value.size <= 2 * 1024 * 1024; // ≤ 2MB
       })
-      .test('fileType', translation?.invalidFileFormat as string, value => {
+      .test('fileType', translation?.invalidFileFormat as string, (value: any) => {
         return value && ['image/jpeg', 'image/png', 'image/jpg'].includes(value.type);
       }),
   
