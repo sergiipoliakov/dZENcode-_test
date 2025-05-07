@@ -20,19 +20,19 @@ export default defineConfig({
     },
     host: true,
     strictPort: true,
-    port: 3000,
+    port: Number(process.env.CLIENT_PORT),
     hmr: {
       overlay: false
     },
     proxy: {
-      '/api': {
-        target: 'http://localhost:4000',
+      [process.env.SERVER_API_PATH as string]: {
+        target: `${process.env.SERVER_URL}:${process.env.SERVER_PORT}`,
         changeOrigin: true,
         secure: false
       }
     },
   },
   preview: {
-    port: 3000
+    port: Number(process.env.CLIENT_PORT)
   }
 })

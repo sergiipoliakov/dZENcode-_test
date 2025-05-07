@@ -23,10 +23,7 @@ const io = new Server(server, {
 
 setupSocket(io);
 
-const allowedOrigins = [
-  process.env.CLIENT_URL as string,
-  'http://localhost:3000'
-].filter(Boolean);
+const allowedOrigins = process.env.ALLOWED_CLIENT_HOSTS?.split(', ')
 
 app.use(cors({
   origin: allowedOrigins,
