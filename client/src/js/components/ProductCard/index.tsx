@@ -49,7 +49,7 @@ const ProductCard = (props: IProductCardProps) => {
             ) : null
           }
           <div>
-            <img src={`${photo ? `${import.meta.env.VITE_API_URL}${photo}` : defaultImg}`} width={40} alt={title} />
+            <img src={`${photo ? `${process.env.SERVER_URL}/${photo}` : defaultImg}`} width={40} alt={title} />
           </div>
           <div className={styles['product-card__title-wrapper']}>
             <Text className="overflow--hidden text-overflow--ellipsis font--no-wrap">

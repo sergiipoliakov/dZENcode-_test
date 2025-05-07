@@ -2,16 +2,16 @@ import { $host } from './index'
 
 const fetchPropducts = async (query: { type: string }) => {
   const { type } = query;
-  const { data } = await $host.get(`/api/products?type=${type}`)
+  const { data } = await $host.get(`/products?type=${type}`)
   return data
 }
 const fetchRemovePropduct = async (productId: string) => {
-  const { data } = await $host.delete(`/api/products/${productId}`)
+  const { data } = await $host.delete(`/products/${productId}`)
   return data
 }
 
 const fetchAddPropduct = async (formData: any) => {
-  const { data } = await $host.post('/api/products', formData)
+  const { data } = await $host.post('/products', formData)
   return data
 }
 

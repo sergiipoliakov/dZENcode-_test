@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import {
   BrowserRouter
 } from 'react-router-dom';
@@ -12,14 +11,13 @@ import '../styles/default.sass';
 const store = configureStore({});
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  <>
     <Provider store={store}>
-    <CookiesProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-
-    </CookiesProvider>
+      <CookiesProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CookiesProvider>
     </Provider>
-  </StrictMode>,
+  </>,
 )

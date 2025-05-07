@@ -8,7 +8,7 @@ import { Text } from '../../common/components';
 // Types
 import { I18N } from '../../middlewares/i18n/types';
 
-const socket = io(import.meta.env.VITE_API_URL);
+const socket = io(process.env.SERVER_URL);
 
 const SessionCounter = () => {
   const {

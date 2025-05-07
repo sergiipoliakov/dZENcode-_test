@@ -11,7 +11,8 @@ export default defineConfig({
   }
   },
   define:{
-    'process.env.API_URL': JSON.stringify(process.env.VITE_API_URL)
+    'process.env.SERVER_URL': JSON.stringify(`${process.env.SERVER_URL}:${process.env.SERVER_PORT}`),
+    'process.env.SERVER_API_PATH': JSON.stringify(process.env.SERVER_API_PATH)
   },
   server: {
     watch: {
