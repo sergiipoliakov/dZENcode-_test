@@ -2,7 +2,7 @@ import { Request, Response, NextFunction }  from 'express';
 import { Order as OrderModel } from '../../model/orders.model';
 import ApiError from '../../error/ApiError';
 
-const createOrder = async (req: Request, res: Response, next: NextFunction) => {
+const updateOrder = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const { params: { id: orderId } } = req;
@@ -17,4 +17,4 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export default createOrder;
+export default updateOrder;
