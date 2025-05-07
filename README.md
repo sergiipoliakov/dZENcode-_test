@@ -1,4 +1,3 @@
-```markdown
 # ⚙️ Настройка проекта
 
 ## 📄 Конфигурация `.env`
@@ -14,13 +13,11 @@
 
 ### Режим разработки
 
-```bash
-docker compose up
-```
+bash
+`docker compose up`
 
 ### Режим продакшн
 
-```bash
-docker compose -f docker-compose.production.yml up
-```
-```
+bash
+`docker compose -f docker-compose.production.yml up`
+
