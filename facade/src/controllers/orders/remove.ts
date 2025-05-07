@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Order as OrderModel } from '../../model/orders.model';
 import ApiError from '../../error/ApiError';
 
-const removeProduct = async (req: Request, res: Response, next: NextFunction) => {
+const removeOrder = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const { params: { id: orderId } } = req;
@@ -15,4 +15,4 @@ const removeProduct = async (req: Request, res: Response, next: NextFunction) =>
 
 }
 
-export default removeProduct;
+export default removeOrder;
