@@ -20,7 +20,7 @@ services:
     volumes:
       - $PWD/facade:/home/app
     ports:
-      - "4001:4001"
+      - "4000:4000"
     networks:
       - proxy
   client:
@@ -39,7 +39,7 @@ services:
     volumes:
       - $PWD/client:/home/app
     ports:
-      - "3001:3001"
+      - "3000:3000"
     networks:
       - proxy
 
