@@ -7,7 +7,7 @@ import { Spinner } from 'react-bootstrap';
 import withTranslation from './middlewares/i18n';
 import withOauth from './decorators/Oauth.dec';
 
-function App(props: { routes?: string }) {
+function App(props: { routes: string }) {
   const { routes } = props;
 
   const [routerComponents, setRouterComponents] = useState<{ path: string, key: string, component: React.FunctionComponent }[] | null>(null);
